@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflanzen Einträge</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pflanzen Einträge</h1>
+
+    <!-- Formular zum Hinzufügen eines neuen Eintrags -->
+    <h2>Neuen Eintrag hinzufügen</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.date.label }} {{ form.date }} <br>
+        {{ form.temperature.label }} {{ form.temperature }} <br>
+        {{ form.humidity.label }} {{ form.humidity }} <br>
+        {{ form.ventilation.label }} {{ form.ventilation }} <br>
+        {{ form.fertilized.label }} {{ form.fertilized }} <br>
+        {{ form.watered.label }} {{ form.watered }} <br>
+        {{ form.pruned.label }} {{ form.pruned }} <br>
+        {{ form.submit }}
+    </form>
+
+    <!-- Tabelle aller Einträge zu dieser Pflanze -->
+    <h2>Einträge zu {{ plant.name }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Temperatur</th>
+                <th>Luftfeuchtigkeit</th>
+                <th>Lüftung</th>
+                <th>Bewässerung</th>
+                <th>Düngung</th>
+                <th>Schnitt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.temperature }}</td>
+                    <td>{{ entry.humidity }}</td>
+                    <td>{{ entry.ventilation }}</td>
+                    <td>{% if entry.watered %} Ja {% else %} Nein {% endif %}</td>
+                    <td>{% if entry.fertilized %} Ja {% else %} Nein {% endif %}</td>
+                    <td>{% if entry.pruned %} Ja {% else %} Nein {% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
